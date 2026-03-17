@@ -97,3 +97,22 @@ def user_exists(username):
     else:
         return False
     
+def reset_password(username, new_password):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            "UPDATE users SET password=? WHERE username=?",
+            (new_password, username)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return True
+
+    except Exception as e:
+        conn.close()
+        return False
