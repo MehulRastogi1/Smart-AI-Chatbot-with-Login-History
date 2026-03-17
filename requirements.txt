@@ -1,0 +1,10 @@
+streamlit
+groq
+ddgs
+pandas
+SpeechRecognition
+deep-translator
+edge-tts
+streamlit-mic-recorder
+Pillow
+duckduckgo-search
