@@ -1,0 +1,9 @@
+USER:
+streamlit ?
+
+ASSISTANT:
+Streamlit is an open-source Python library used for creating simple, web-based user interfaces for data science and machine learning applications. It allows users to create interactive dashboards and visualize data in real-time.
+
+ASSISTANT:
+Streamlit is a Python library used for creating web applications in a simple and intuitive way, especially for data science and machine learning projects. It allows users to build and share applications quickly.
+
