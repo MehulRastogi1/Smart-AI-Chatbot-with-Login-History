@@ -677,21 +677,26 @@ def show_login():
     if "auth_mode" not in st.session_state:
         st.session_state.auth_mode = "login"
 
+    if "reset_mode" not in st.session_state:
+        st.session_state.reset_mode = False
+
     col1, col2 = st.columns(2)
 
     with col1:
         if st.button("Login", key="switch_login", width='stretch'):
             st.session_state.auth_mode = "login"
+            st.session_state.reset_mode = False
 
     with col2:
         if st.button("Create Account", key="switch_signup", width='stretch'):
             st.session_state.auth_mode = "signup"
+            st.session_state.reset_mode = False
 
     st.divider()
 
     # ---------------- LOGIN FORM ---------------- #
 
-    if st.session_state.auth_mode == "login":
+    if st.session_state.auth_mode == "login" and not st.session_state.reset_mode:
 
         st.subheader("Login to your account")
 
@@ -724,6 +729,57 @@ def show_login():
 
                     else:
                         st.error("Invalid username or password")
+
+        # 🔥 Forgot Password Button (Professional Placement)
+        st.markdown("<div style='text-align:right;'>", unsafe_allow_html=True)
+        if st.button("Forgot Password?", key="forgot_pass_btn"):
+            st.session_state.reset_mode = True
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
+    # ---------------- RESET PASSWORD ---------------- #
+
+    if st.session_state.reset_mode:
+
+        st.subheader("Reset Your Password")
+
+        with st.form("reset_form"):
+
+            reset_user = st.text_input("Enter Username").strip().lower()
+            new_password = st.text_input("New Password", type="password").strip()
+            confirm_password = st.text_input("Confirm Password", type="password").strip()
+
+            submit_reset = st.form_submit_button("Update Password")
+
+            if submit_reset:
+
+                if reset_user == "" or new_password == "" or confirm_password == "":
+                    st.warning("All fields are required")
+                    return
+
+                if not sq.user_exists(reset_user):
+                    st.error("User does not exist")
+                    return
+
+                if new_password != confirm_password:
+                    st.warning("Passwords do not match")
+                    return
+
+                if len(new_password) < 4:
+                    st.warning("Password must be at least 4 characters")
+                    return
+
+                if sq.reset_password(reset_user, new_password):
+                    st.success("Password updated successfully ✅")
+                    st.session_state.reset_mode = False
+                    st.session_state.auth_mode = "login"
+                    st.rerun()
+                else:
+                    st.error("Something went wrong")
+
+        if st.button("⬅ Back to Login"):
+            st.session_state.reset_mode = False
+            st.rerun()
 
 
     # ---------------- SIGNUP FORM ---------------- #
@@ -766,7 +822,6 @@ def show_login():
 
                     sq.create_user(new_user, new_pass)
 
-                    # 🔹 create user chat folder
                     user_folder = os.path.join("chat_history", new_user)
 
                     try:
@@ -781,6 +836,7 @@ def show_login():
                 st.session_state.auth_mode = "login"
 
                 st.rerun()
+
 
 @st.dialog("Confirm Logout")
 def confirm_logout():
