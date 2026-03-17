@@ -463,8 +463,8 @@ def show():
             if p.exists():
                 try:
                     im = Image.open(p)
-                    # use_container_width replaces deprecated use_column_width
-                    st.image(im, use_container_width=True)
+                    # width replaces deprecated use_column_width
+                    st.image(im, width='stretch')
                 except Exception:
                     st.write("")  # keep layout
             else:
@@ -483,7 +483,7 @@ def show():
             if p.exists():
                 try:
                     im = Image.open(p)
-                    st.image(im, caption=fname.replace(".jpg", "").replace("_", " ").title(), use_container_width=True)
+                    st.image(im, caption=fname.replace(".jpg", "").replace("_", " ").title(), width='stretch')
                 except Exception:
                     st.write("")  # placeholder
             else:
@@ -680,11 +680,11 @@ def show_login():
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("Login", key="switch_login", use_container_width=True):
+        if st.button("Login", key="switch_login", width='stretch'):
             st.session_state.auth_mode = "login"
 
     with col2:
-        if st.button("Create Account", key="switch_signup", use_container_width=True):
+        if st.button("Create Account", key="switch_signup", width='stretch'):
             st.session_state.auth_mode = "signup"
 
     st.divider()
