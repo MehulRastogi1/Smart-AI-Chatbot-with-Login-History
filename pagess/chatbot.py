@@ -1295,10 +1295,7 @@ def show_without_login():
             color: #0b79d0;
         }
 
-        /* Hide default Streamlit header for a cleaner look */
-        header[data-testid="stHeader"] {
-            display: none;
-        }
+        
 
         /* Slight spacing improvement for chat area */
         .css-1lcbmhc.e1fqkh3o3 {
