@@ -1357,7 +1357,7 @@ def show_without_login():
                 "system_prompt": "Think step by step and solve complex problems."
             },
             "CODER": {
-                "model": "moonshotai/kimi-k2.5",
+                "model": "qwen/qwen3.6-27b",
                 "temperature": 0.2,
                 "max_tokens": 1200,
                 "system_prompt": "You are an expert programmer. Write clean, correct and optimized code."
@@ -1373,12 +1373,12 @@ def show_without_login():
             [
                 "openai/gpt-oss-20b",
                 "openai/gpt-oss-120b",
-                "moonshotai/kimi-k2.5"
+                "qwen/qwen3.6-27b"
             ],
             index=[
                 "openai/gpt-oss-20b",
                 "openai/gpt-oss-120b",
-                "moonshotai/kimi-k2.5"
+                "qwen/qwen3.6-27b"
             ].index(config["model"])
         )
 
