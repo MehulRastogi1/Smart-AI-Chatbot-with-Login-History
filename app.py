@@ -569,7 +569,7 @@ def show():
                 st.error("Failed to initialize Groq client. Check your API key and environment.")
                 st.stop()
 
-            model = "llama-3.1-8b-instant"
+            model = "moonshotai/kimi-k2-instruct-0905"
             messages = [
                 {"role": "system", "content": "You are a helpful assistant. Keep answers concise."},
                 {"role": "user", "content": sample}
