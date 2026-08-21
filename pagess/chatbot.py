@@ -1344,20 +1344,20 @@ def show_without_login():
         # -------- MODE CONFIG --------
         mode_configs = {
             "FAST": {
-                "model": "llama-3.1-8b-instant",
+                "model": "openai/gpt-oss-20b",
                 "temperature": 0.3,
                 "max_tokens": 300,
                 "system_prompt": "Give short and direct answers."
             },
             
             "THINK HARD": {
-                "model": "qwen/qwen3-32b",
+                "model": "openai/gpt-oss-120b",
                 "temperature": 0.2,
                 "max_tokens": 1500,
                 "system_prompt": "Think step by step and solve complex problems."
             },
             "CODER": {
-                "model": "llama-3.3-70b-versatile",
+                "model": "moonshotai/kimi-k2-instruct-0905",
                 "temperature": 0.2,
                 "max_tokens": 1200,
                 "system_prompt": "You are an expert programmer. Write clean, correct and optimized code."
@@ -1367,17 +1367,19 @@ def show_without_login():
         config = mode_configs[mode]
         
         # -------- MODEL SELECT --------
+        # -------- MODEL SELECT --------
         model = st.selectbox(
             "Model",
             [
-                "llama-3.1-8b-instant",
-                "llama-3.3-70b-versatile",
-                "qwen/qwen3-32b"
+                "openai/gpt-oss-20b",
+                "openai/gpt-oss-120b",
+                "moonshotai/kimi-k2-instruct-0905"
             ],
-            index=0 if config["model"] == "llama-3.1-8b-instant"
-            else 1 if config["model"] == "llama-3.3-70b-versatile"
-            else 2 if config["model"] == "qwen/qwen3-32b"
-            else 3
+            index=[
+                "openai/gpt-oss-20b",
+                "openai/gpt-oss-120b",
+                "moonshotai/kimi-k2-instruct-0905"
+            ].index(config["model"])
         )
 
         # -------- MAX TOKENS SLIDER --------
